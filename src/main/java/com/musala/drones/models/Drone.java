@@ -1,8 +1,30 @@
 package com.musala.drones.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.musala.drones.models.enums.Model;
+import com.musala.drones.models.enums.State;
+import lombok.Data;
 
-@Getter
-@Setter
-public class Drone {}
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Data
+@Entity
+@Table(name = "drones")
+public class Drone implements Serializable {
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
+    Long id;
+    @Column(name = "serial_number", nullable = false)
+    String serialNumber;
+    @Enumerated
+    @Column(columnDefinition = "tinyint")
+    Model model;
+    @Column(name = "weight_limit", nullable = false)
+    Double weightLimit;
+    @Column(name = "battery_capacity", nullable = false)
+    Integer batteryCapacity;
+    @Enumerated
+    @Column(columnDefinition = "tinyint")
+    State state;
+}
