@@ -1,5 +1,6 @@
 package com.musala.drones.models;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,7 +12,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "medications")
-public class Medication {
+public class Medication extends BaseModel implements Serializable {
   @Id @GeneratedValue Long id;
 
   @Pattern(

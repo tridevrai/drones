@@ -7,11 +7,13 @@ import javax.persistence.*;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.Max;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Table(name = "drones")
-public class Drone implements Serializable {
+public class Drone extends BaseModel implements Serializable {
   @Id
   @GeneratedValue
   @Column(name = "id")
