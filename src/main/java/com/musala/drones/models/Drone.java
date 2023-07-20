@@ -5,6 +5,7 @@ import com.musala.drones.models.enums.State;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.Max;
 import lombok.Data;
 
 @Data
@@ -16,7 +17,8 @@ public class Drone implements Serializable {
   @Column(name = "id")
   Long id;
 
-  @Column(name = "serial_number", nullable = false, length = 100)
+  @Column(name = "serial_number", nullable = false)
+  @Max(value = 100, message = "serial number cannot exceed 100 characters")
   String serialNumber;
 
   @Enumerated
@@ -24,7 +26,7 @@ public class Drone implements Serializable {
   Model model;
 
   @Column(name = "weight_limit", nullable = false)
-  @DecimalMax(value = "500.0")
+  @DecimalMax(value = "500.0", message = "weight limit cannot exceed 500 grams")
   Double weightLimit;
 
   @Column(name = "battery_capacity", nullable = false)
