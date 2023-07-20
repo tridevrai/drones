@@ -7,7 +7,6 @@ import lombok.Data;
 
 @Data
 public class DroneDto implements Serializable {
-  Long id;
   String serialNumber;
   Model model;
   double weightLimit;
