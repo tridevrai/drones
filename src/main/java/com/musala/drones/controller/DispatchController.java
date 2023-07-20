@@ -1,0 +1,56 @@
+package com.musala.drones.controller;
+
+import com.musala.drones.dto.LoadDto;
+import com.musala.drones.dto.assembler.DroneDtoAssembler;
+import com.musala.drones.dto.assembler.MedicationAssembler;
+import com.musala.drones.dto.response.DroneResponseDto;
+import com.musala.drones.dto.response.MedicationResponseDto;
+import com.musala.drones.service.DroneService;
+import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("api/v1/drones")
+public class DispatchController {
+
+  private DroneService droneService;
+
+  @PostMapping
+  public ResponseEntity<DroneResponseDto> registerDrone(@RequestBody DroneResponseDto droneDto) {
+    return new ResponseEntity<>(
+        DroneDtoAssembler.toDto(droneService.register(droneDto)), HttpStatus.CREATED);
+  }
+
+  @PostMapping("/loads")
+  public ResponseEntity<String> loadMedications(@RequestBody LoadDto loadDto) {
+    return new ResponseEntity<>(droneService.load(loadDto), HttpStatus.OK);
+  }
+
+  @GetMapping("/{droneId}/loads/medications")
+  public ResponseEntity<List<MedicationResponseDto>> getLoadedMedications(
+      @PathVariable long droneId) {
+    return new ResponseEntity<>(
+        MedicationAssembler.toDto(droneService.getLoadedMedications(droneId)), HttpStatus.OK);
+  }
+
+  @GetMapping("/loads/{loadReferenceId}/medications")
+  public ResponseEntity<List<MedicationResponseDto>> getLoadedMedications(
+      @PathVariable String loadReferenceId) {
+    return new ResponseEntity<>(
+        MedicationAssembler.toDto(droneService.getLoadedMedications(loadReferenceId)),
+        HttpStatus.OK);
+  }
+
+  @GetMapping("/available")
+  public ResponseEntity<List<DroneResponseDto>> getAvailableDrones() {
+    return new ResponseEntity<>(
+        DroneDtoAssembler.toDto(droneService.getAvailableDrones()), HttpStatus.OK);
+  }
+
+  @GetMapping("/{droneId}/battery-percentage")
+  public ResponseEntity<Integer> getBatteryPercentage(@PathVariable long droneId) {
+    return new ResponseEntity<>(droneService.checkBatteryPercentage(droneId), HttpStatus.OK);
+  }
+}
