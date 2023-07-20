@@ -6,3 +6,11 @@ CREATE TABLE `drones` (
                           `battery_capacity` INT(3) NOT NULL,
                           `state` varchar(20) NOT NULL
 );
+
+CREATE TABLE `medications` (
+                            id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                            name VARCHAR(200),
+                            weight DECIMAL(10,2),
+                            code VARCHAR(100),
+                            image BLOB
+);
