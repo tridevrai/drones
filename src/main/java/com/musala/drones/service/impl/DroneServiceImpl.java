@@ -60,7 +60,7 @@ public class DroneServiceImpl implements DroneService {
                     loadDto.getDroneId()));
     if (LoadValidator.belowAcceptableBatteryPercentage(droneToLoad))
       throw new DroneException(
-          "Drone cannot be Loaded due to below %s% battery limit",
+          "Drone cannot be Loaded due to below %s percentage battery limit",
           LoadValidator.ACCEPTABLE_BATTERY_PERCENTAGE_LIMIT);
 
     droneToLoad.setState(State.LOADING);
@@ -69,11 +69,9 @@ public class DroneServiceImpl implements DroneService {
     Iterable<Medication> medicationsThatNeedsToBeLoaded =
         medicationRepository.findAllById(loadDto.getMedicationIds());
     if (LoadValidator.weighLimitExceed(medicationsThatNeedsToBeLoaded)) {
-      // @TODO: test if it gets reverted back due to transactional
-      //          droneToLoad.setState(State.IDLE);
-      //          droneRepository.save(droneToLoad);
       throw new DroneException(
-          "Drone = %s cannot be loaded due to weight exceeded 500", loadDto.getDroneId());
+          "Drone = %s cannot be loaded since total weight to load is above %s grams.",
+          LoadValidator.WEIGHT_LIMIT, loadDto.getDroneId());
     }
 
     String loadReferenceId = UUID.randomUUID().toString();

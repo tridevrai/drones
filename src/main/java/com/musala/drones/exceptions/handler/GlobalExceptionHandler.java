@@ -1,5 +1,6 @@
 package com.musala.drones.exceptions.handler;
 
+import com.musala.drones.exceptions.DroneException;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -48,5 +50,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             .map(DefaultMessageSourceResolvable::getDefaultMessage)
             .collect(Collectors.toList());
     return new ResponseEntity<>(String.join(",\n", errorMessage), HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler(DroneException.class)
+  public ResponseEntity<String> handleDroneException(DroneException ex) {
+    return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
   }
 }
