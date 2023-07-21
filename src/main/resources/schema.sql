@@ -5,8 +5,8 @@ CREATE TABLE `drones` (
                           `weight_limit` DECIMAL(6 , 3) NOT NULL,
                           `battery_capacity` INT(3) NOT NULL,
                           `state` varchar(20) NOT NULL,
-                          created_date TIMESTAMP,
-                          last_modified_date TIMESTAMP
+                          `created_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                          `last_modified_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE `medications` (
@@ -15,8 +15,8 @@ CREATE TABLE `medications` (
                             weight DECIMAL(10,2) NOT NULL,
                             code VARCHAR(100) NOT NULL,
                             image BLOB NOT NULL,
-                            created_date TIMESTAMP,
-                            last_modified_date TIMESTAMP
+                            created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                            last_modified_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE `load` (
@@ -25,8 +25,8 @@ CREATE TABLE `load` (
                         medication_id BIGINT NOT NULL,
                         load_reference_id VARCHAR(255) NOT NULL,
 --                         status VARCHAR(255) NOT NULL,
-                        created_date TIMESTAMP,
-                        last_modified_date TIMESTAMP,
+                        created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                        last_modified_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                         FOREIGN KEY (medication_id) REFERENCES medications(id),
                         FOREIGN KEY (drone_id) REFERENCES drones(id)
 );

@@ -9,11 +9,11 @@ import org.springframework.data.annotation.LastModifiedDate;
 public class BaseModel implements Serializable {
 
   @CreatedDate
-  @Column(name = "created_date")
+  @Column(name = "created_date", columnDefinition = "TIMESTAMP")
   Instant createdDate;
 
   @LastModifiedDate
-  @Column(name = "last_modified_date")
+  @Column(name = "last_modified_date", columnDefinition = "TIMESTAMP")
   Instant lastModifiedDate;
 
   public Instant getCreatedDate() {
