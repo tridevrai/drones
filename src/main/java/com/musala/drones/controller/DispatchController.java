@@ -7,6 +7,8 @@ import com.musala.drones.dto.response.DroneResponseDto;
 import com.musala.drones.dto.response.MedicationResponseDto;
 import com.musala.drones.service.DroneService;
 import java.util.List;
+import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +19,14 @@ public class DispatchController {
 
   private DroneService droneService;
 
+  @Autowired
+  public void setDroneService(DroneService droneService) {
+    this.droneService = droneService;
+  }
+
   @PostMapping
-  public ResponseEntity<DroneResponseDto> registerDrone(@RequestBody DroneResponseDto droneDto) {
+  public ResponseEntity<DroneResponseDto> registerDrone(
+      @Valid @RequestBody DroneResponseDto droneDto) {
     return new ResponseEntity<>(
         DroneDtoAssembler.toDto(droneService.register(droneDto)), HttpStatus.CREATED);
   }
