@@ -24,7 +24,9 @@ CREATE TABLE `load` (
                         drone_id BIGINT NOT NULL,
                         medication_id BIGINT NOT NULL,
                         load_reference_id VARCHAR(255) NOT NULL,
-                        status VARCHAR(255) NOT NULL,
+--                         status VARCHAR(255) NOT NULL,
                         created_date TIMESTAMP,
-                        last_modified_date TIMESTAMP
+                        last_modified_date TIMESTAMP,
+                        FOREIGN KEY (medication_id) REFERENCES medications(id),
+                        FOREIGN KEY (drone_id) REFERENCES drones(id)
 );
