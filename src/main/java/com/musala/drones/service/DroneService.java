@@ -1,13 +1,13 @@
 package com.musala.drones.service;
 
+import com.musala.drones.dto.DroneDto;
 import com.musala.drones.dto.LoadDto;
-import com.musala.drones.dto.response.DroneResponseDto;
 import com.musala.drones.models.Drone;
 import com.musala.drones.models.Medication;
 import java.util.List;
 
 public interface DroneService {
-  Drone register(DroneResponseDto droneDto);
+  Drone register(DroneDto droneDto);
 
   String load(LoadDto loadDto);
   // This will give the latest loaded medicines for the given drone Id
