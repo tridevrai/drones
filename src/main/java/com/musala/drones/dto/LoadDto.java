@@ -7,5 +7,5 @@ import lombok.Data;
 @Data
 public class LoadDto implements Serializable {
   private Long droneId;
-  private List<String> medicationCodes;
+  private List<Long> medicationIds;
 }

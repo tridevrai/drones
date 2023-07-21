@@ -3,16 +3,18 @@ package com.musala.drones.models;
 import com.musala.drones.models.enums.LoadStatus;
 import java.io.Serializable;
 import javax.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Table(name = "load")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Load extends BaseModel implements Serializable {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
   Long id;
 
