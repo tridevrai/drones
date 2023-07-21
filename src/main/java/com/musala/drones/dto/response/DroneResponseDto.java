@@ -1,12 +1,15 @@
 package com.musala.drones.dto.response;
 
 import com.musala.drones.dto.DroneDto;
-import java.io.Serializable;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class DroneResponseDto extends DroneDto implements Serializable {
+@AllArgsConstructor
+@NoArgsConstructor
+public class DroneResponseDto extends DroneDto {
   Long id;
 }
