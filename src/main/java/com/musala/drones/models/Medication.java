@@ -1,10 +1,7 @@
 package com.musala.drones.models;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import lombok.Data;
@@ -15,7 +12,9 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Table(name = "medications")
 public class Medication extends BaseModel implements Serializable {
-  @Id @GeneratedValue Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  Long id;
 
   @Pattern(
       regexp = "[a-zA-Z0-9-_]+",

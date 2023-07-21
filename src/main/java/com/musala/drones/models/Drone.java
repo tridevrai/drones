@@ -22,8 +22,8 @@ public class Drone extends BaseModel implements Serializable {
   @Column(name = "serial_number", nullable = false)
   String serialNumber;
 
-  @Enumerated
-  @Column(columnDefinition = "tinyint")
+  @Enumerated(EnumType.STRING)
+  @Column(columnDefinition = "VARCHAR(100) NOT NULL")
   Model model;
 
   @Column(name = "weight_limit", nullable = false)
@@ -32,7 +32,7 @@ public class Drone extends BaseModel implements Serializable {
   @Column(name = "battery_capacity", nullable = false)
   Integer batteryCapacity;
 
-  @Enumerated
-  @Column(columnDefinition = "tinyint")
+  @Enumerated(EnumType.STRING)
+  @Column(columnDefinition = "VARCHAR(100) NOT NULL")
   State state;
 }
