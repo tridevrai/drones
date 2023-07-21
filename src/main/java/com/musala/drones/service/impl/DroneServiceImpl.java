@@ -17,9 +17,11 @@ import com.musala.drones.utils.LoadValidator;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 @Service
 public class DroneServiceImpl implements DroneService {
@@ -86,22 +88,31 @@ public class DroneServiceImpl implements DroneService {
   }
 
   @Override
-  public List<Medication> getLoadedMedications(Long droneId) {
-    return null;
-  }
-
-  @Override
-  public List<Medication> getLoadedMedications(String loadReferenceId) {
-    return null;
+  public List<Medication> getLoadedMedications(Long droneId, String loadReferenceId) {
+    List<Load> allLoadedRecords = loadRepository.getAllLoadedRecords(droneId, loadReferenceId);
+    if (CollectionUtils.isEmpty(allLoadedRecords))
+      throw new DroneException(
+          "There is no Drone of id = %s that has loaded with reference id =%s",
+          droneId, loadReferenceId);
+    return allLoadedRecords.stream().map(Load::getMedication).collect(Collectors.toList());
   }
 
   @Override
   public List<Drone> getAvailableDrones() {
-    return null;
+    return droneRepository.findAllByStateIsAndBatteryCapacityIsGreaterThan(
+        State.IDLE, LoadValidator.ACCEPTABLE_BATTERY_PERCENTAGE_LIMIT);
   }
 
   @Override
   public int checkBatteryPercentage(Long droneId) {
-    return 0;
+    Drone drone =
+        droneRepository
+            .findById(droneId)
+            .orElseThrow(
+                () ->
+                    new DroneException(
+                        "Drone is not registered with id = %s. Please register it first.",
+                        droneId));
+    return drone.getBatteryCapacity();
   }
 }

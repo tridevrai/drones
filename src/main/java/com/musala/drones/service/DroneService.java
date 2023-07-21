@@ -10,10 +10,8 @@ public interface DroneService {
   Drone register(DroneDto droneDto);
 
   String load(LoadDto loadDto);
-  // This will give the latest loaded medicines for the given drone Id
-  List<Medication> getLoadedMedications(Long droneId);
-  // This will give the particular loaded medicines for the load reference Id
-  List<Medication> getLoadedMedications(String loadReferenceId);
+
+  List<Medication> getLoadedMedications(Long droneId, String loadReferenceId);
 
   List<Drone> getAvailableDrones();
 

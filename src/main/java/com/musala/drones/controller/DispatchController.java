@@ -36,18 +36,11 @@ public class DispatchController {
     return new ResponseEntity<>(droneService.load(loadDto), HttpStatus.OK);
   }
 
-  @GetMapping("/{droneId}/loads/medications")
+  @GetMapping("/{droneId}/loads/{loadReferenceId}/medications")
   public ResponseEntity<List<MedicationResponseDto>> getLoadedMedications(
-      @PathVariable long droneId) {
+      @PathVariable Long droneId, @PathVariable String loadReferenceId) {
     return new ResponseEntity<>(
-        MedicationAssembler.toDto(droneService.getLoadedMedications(droneId)), HttpStatus.OK);
-  }
-
-  @GetMapping("/loads/{loadReferenceId}/medications")
-  public ResponseEntity<List<MedicationResponseDto>> getLoadedMedications(
-      @PathVariable String loadReferenceId) {
-    return new ResponseEntity<>(
-        MedicationAssembler.toDto(droneService.getLoadedMedications(loadReferenceId)),
+        MedicationAssembler.toDto(droneService.getLoadedMedications(droneId, loadReferenceId)),
         HttpStatus.OK);
   }
 
